@@ -1,0 +1,15 @@
+.img-container {
+    position: relative;
+    z-index: 0;  
+}
+     
+    .text-over-img {
+        position: absolute;
+        z-index:1;
+        font-size: 1em;
+        /* margin: 0; */
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    }
