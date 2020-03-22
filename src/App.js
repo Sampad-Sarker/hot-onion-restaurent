@@ -11,6 +11,8 @@ import {
 } from "react-router-dom";
 import FoodDetailInfo from './Components/FoodDetailInfo/FoodDetailInfo';
 import NotFound from './Components/Notfound/NotFound';
+import Cart from './Components/Cart/Cart';
+import LogIn from './Components/LogIn/LogIn';
 
 function App() {
 
@@ -33,6 +35,16 @@ function App() {
             <FoodDetailInfo></FoodDetailInfo>
           </Route>
 
+          <Route path='/login'>
+            <LogIn></LogIn>
+          </Route>
+
+          <Route path ='/cart'>
+            <Cart></Cart>
+          </Route>
+
+          
+          
           <Route exact path="/">
             <FoodDisplay foodCat={lunchFood}></FoodDisplay>
           </Route>
