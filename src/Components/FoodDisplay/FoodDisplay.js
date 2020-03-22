@@ -59,11 +59,11 @@ const FoodDisplay = (props) => {
                                 
                                     <div>
                                 
-                                    <div className="card text-center" > 
+                                    <div className="card text-center " > 
                                         <img className="card-img-top" src={el.img} alt="Card image cap"></img>
                                 
                                         <div className="card-body">
-                                            <h5 className="card-title"><Link to={"/food/"+el.id}>{el.title}</Link></h5>
+                                            <h5 className="card-title"><a href="" className=""></a> <Link to={"/food/"+el.id}>{el.title}</Link></h5>
                                             <p className="card-text">{el.category}</p>
                                             <p className="font-weight-bold">${el.price}</p>
                                         </div>

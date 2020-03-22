@@ -19,14 +19,14 @@ const FoodDetailInfo = () => {
                     <a href="">Lunch</a>
                     <a href="">Dinner</a>
             </div>
-           <div>
+           <div style={{width:"50%"}}>
                 <h3>{category} Item</h3>
                 <h4>{title}</h4>
                 <p>{detailDescription}</p>
                 <h5>${price} <span><button>+</button>1<button>-</button></span> </h5>
                 <button>Add cart</button>
            </div>
-           <div>
+           <div style={{width:"40%",float:"left"}}>
                <img src={img} alt=""/>
            </div>
 

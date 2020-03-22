@@ -9,7 +9,7 @@ const Header = () => {
         <div>
             {/* <h1>This header</h1> */}
             <div className="container-fluid">
-                <div className="d-flex bd-highlight">
+                <div className="row d-flex bd-highlight m-0 p-0">
                         <div className="p-2  bd-highlight"><a className="navbar-brand" href="/">
                         <img src={logo} width="15%" height="5%" alt="logo"/>
                         </a></div>
@@ -18,20 +18,20 @@ const Header = () => {
                         {/* <div class="p-2 flex-shrink-1 bd-highlight"><button>Signup</button></div> */}
                 </div>
 
-                    <div className="row">
-                        <div className="col-12 img-container">
-                            <img src={bgImg} alt="" width="100%"/>
+                    <div className="row  img-container">
+                        {/* <div className="col-12"> */}
+                            <img src={bgImg} alt="" className="img-fluid"/>
                             <div className="text-over-img ">
                                <h1>Best Food Waiting for You</h1>
-                               <nav className="navbar navbar-light bg-light" >
+                               <nav className="navbar navbar-light" >
                                     <form className="form-inline">
-                                        <input className="form-control" width="100%" type="search" placeholder="Search" ></input>
+                                        <input className="form-control"  type="search" placeholder="Search" ></input>
                                         <button className="btn btn-outline-success " type="submit">Search</button>
                                     </form>
                                 </nav>
 
                             </div>
-                        </div>
+                        {/* </div> */}
                     </div>
                 
                 
