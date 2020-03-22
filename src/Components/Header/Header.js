@@ -9,19 +9,14 @@ const Header = () => {
         <div>
             {/* <h1>This header</h1> */}
             <div className="container-fluid">
-                
-                    {/* <a class="navbar-brand" href="#">
-                        <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="logo"/>
-                    </a> */}
-
-                    <div className="d-flex bd-highlight">
+                <div className="d-flex bd-highlight">
                         <div className="p-2  bd-highlight"><a className="navbar-brand" href="/">
                         <img src={logo} width="15%" height="5%" alt="logo"/>
                         </a></div>
                         <div className="p-2 flex-shrink-1 bd-highlight"><button type="button" className="btn btn-sm"><FontAwesomeIcon icon={faShoppingCart} /></button></div>
                         <div className="p-2 flex-shrink-1 bd-highlight"><button  type="button" className="btn btn-light">Login</button><button type="button" className="btn btn-success">SignUp</button></div>
                         {/* <div class="p-2 flex-shrink-1 bd-highlight"><button>Signup</button></div> */}
-                    </div>
+                </div>
 
                     <div className="row">
                         <div className="col-12 img-container">

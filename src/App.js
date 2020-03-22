@@ -1,12 +1,15 @@
 import React from 'react';
 import './App.css';
 import Header from './Components/Header/Header';
+import FoodDisplay from './Components/FoodDisplay/FoodDisplay';
 
 function App() {
   return (
     <div>
-      {/* <h1 className="text-danger">Main Page</h1> */}
+      
       <Header></Header>
+      <FoodDisplay></FoodDisplay>
+    
     </div>
   );
 }
