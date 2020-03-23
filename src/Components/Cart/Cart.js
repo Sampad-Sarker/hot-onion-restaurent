@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Cart.css';
+import { Link } from 'react-router-dom';
 
 const Cart = (props) => {
 
@@ -36,6 +37,11 @@ const Cart = (props) => {
             <h2>price:{price}</h2>
             <h2>tax:{tax.toFixed(2)}</h2>
             <h3>food total:{(total+tax).toFixed(2)}</h3>
+
+            <Link to="/place-order">
+                <button>review button</button>
+            </Link>
+            
             
 
         </div>

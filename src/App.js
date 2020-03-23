@@ -13,6 +13,7 @@ import FoodDetailInfo from './Components/FoodDetailInfo/FoodDetailInfo';
 import NotFound from './Components/Notfound/NotFound';
 import Cart from './Components/Cart/Cart';
 import LogIn from './Components/LogIn/LogIn';
+import PlaceOrder from './Components/PlaceOrder/PlaceOrder';
 
 function App() {
 
@@ -43,8 +44,13 @@ function App() {
             <Cart></Cart>
           </Route>
 
-          
-          
+          <Route path="/place-order">
+            <PlaceOrder></PlaceOrder>
+          </Route>
+
+
+
+
           <Route exact path="/">
             <FoodDisplay></FoodDisplay>
           </Route>
