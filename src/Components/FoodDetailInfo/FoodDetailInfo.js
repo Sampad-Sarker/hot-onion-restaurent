@@ -1,36 +1,49 @@
 
 
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import fakeData from '../../fakeData';
+import Cart from '../Cart/Cart';
 
 const FoodDetailInfo = () => {
 
+    
     const {foodId} = useParams();
-    const specificFood = fakeData.find(el =>el.id ===foodId);
+    const specificFood = fakeData.find(el =>el.id === foodId);
 
     const{id,title,detailDescription,category,price,img} =specificFood;
-    console.log(specificFood);
+    //console.log(specificFood);
+
+    const[cart,setCart]=useState([]);//cart use state 
+
+
+    const addCartButton =(sFood)=>{
+        console.log("add cart button click",sFood);
+        const newCart=[...cart,sFood];
+        setCart(newCart);
+    }
+
     return (
         <div>
-            <h1>id={foodId} Specific food details are Here....</h1>
+            <h1>{id} Specific food details are Here....</h1>
             <div>
-                    <a href="">Breakfast</a>
-                    <a href="">Lunch</a>
-                    <a href="">Dinner</a>
+                    <Link to="/food-display">Breakfast</Link>
+                    <Link to="/food-display">Lunch</Link>
+                    <Link to="/food-display">Dinner</Link>
             </div>
-           <div style={{width:"50%"}}>
+           <div style={{width:"40%",float:"left"}}>
                 <h3>{category} Item</h3>
                 <h4>{title}</h4>
                 <p>{detailDescription}</p>
-                <h5>${price} <span><button>+</button>1<button>-</button></span> </h5>
-                <button>Add cart</button>
+                <h5>${price} <span><button>-</button>1<button>+</button></span> </h5>
+                <button onClick={()=>addCartButton(specificFood)} >Add cart</button>
            </div>
-           <div style={{width:"40%",float:"left"}}>
-               <img src={img} alt=""/>
+           <div style={{width:"60%",float:"left"}}>
+               <img src={img} alt=""style={{width:"100%"}}/>
            </div>
+           <Cart foodInfo={cart}></Cart>
 
-        </div>
+        </div>  
     );
 };
 

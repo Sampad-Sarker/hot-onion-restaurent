@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import './FoodDisplay.css';
 import fakeData from '../../fakeData';
 import { Link } from 'react-router-dom';
+import FoodDetailInfo from '../FoodDetailInfo/FoodDetailInfo';
 
 const FoodDisplay = (props) => {
    
        
     const [food,setFood] = useState(fakeData);
-    let lunchFood=food.filter(el=>el.category==="lunch");
+    let foodCat=food.filter(el=>el.category==="lunch");
 
+    
     //console.log("lunch",lunchFood);
 
  //button onclick  activity 
@@ -29,7 +31,10 @@ const FoodDisplay = (props) => {
     }
     
    
-    lunchFood = tempFood;
+    foodCat = tempFood;
+
+
+   
     
     return (
         <div>
@@ -58,7 +63,7 @@ const FoodDisplay = (props) => {
                 <div className="col-md-12">
                     <div className="card-columns">
                         {
-                            lunchFood.map(el =>
+                            foodCat.map(el =>
                                 
                                     <div>
                                 
@@ -71,9 +76,12 @@ const FoodDisplay = (props) => {
                                             <p className="font-weight-bold">${el.price}</p>
                                         </div>
                                     </div>
+
+                                        
+                                    
                                 </div>
                             
-                            
+                                
                         
                             )
                         }
