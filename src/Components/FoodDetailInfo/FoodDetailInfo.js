@@ -30,11 +30,11 @@ const FoodDetailInfo = () => {
 
     return (
         <div>
-            <h1>{id} Specific food details are Here....</h1>
+            {/* <h1>{id} Specific food details are Here....</h1> */}
             <div>
-                    <Link to="/food-display">Breakfast</Link>
-                    <Link to="/food-display">Lunch</Link>
-                    <Link to="/food-display">Dinner</Link>
+                    <Link to="/food-display"><button>Breakfast</button></Link>
+                    <Link to="/food-display"><button>Lunch</button></Link>
+                    <Link to="/food-display"><button>Dinner</button></Link>
             </div>
            <div style={{width:"40%",float:"left"}}>
                 <h3>{category} Item</h3>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Cart = (props) => {
 
-    console.log("props from food detail info",props);
+    //console.log("props from food detail info",props);
    
 
     const foodCart=props.foodInfo;
@@ -31,11 +31,12 @@ const Cart = (props) => {
     console.log("cart inside",foodCart);
     return (
         <div>
-            <h1>this cart page</h1>
-            <h2>name:{name}</h2>
-            <h2>Item quantity number:{foodCart.length}</h2>
-            <h2>price:{price}</h2>
-            <h2>tax:{tax.toFixed(2)}</h2>
+            {/* <h1>this cart page</h1> */}
+            <h2>Purchase info</h2>
+            <h3>name:{name}</h3>
+            <h3>Item quantity number:{foodCart.length}</h3>
+            <h3>price:{price}</h3>
+            <h3>tax:{tax.toFixed(2)}</h3>
             <h3>food total:{(total+tax).toFixed(2)}</h3>
 
             <Link to="/place-order">

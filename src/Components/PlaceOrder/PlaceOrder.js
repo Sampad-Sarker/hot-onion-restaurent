@@ -42,7 +42,7 @@ const PlaceOrder = () => {
 
     return (
         <div>
-            <h1>place Order Page</h1>
+            {/* <h1>place Order Page</h1> */}
             <h2>item:{foodCart.length}</h2>
             {
                 foodCart.map(el => {return <div>

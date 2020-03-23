@@ -16,9 +16,7 @@ import PlaceOrder from './Components/PlaceOrder/PlaceOrder';
 
 function App() {
 
-  //console.log(fakeData);
-  // const [food,setFood] = useState(fakeData);
-  // const lunchFood=food.filter(el=>el.category==="lunch");
+  
 
   return (
     <div>

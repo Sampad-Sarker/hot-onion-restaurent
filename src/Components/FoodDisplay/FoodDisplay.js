@@ -15,6 +15,7 @@ const FoodDisplay = (props) => {
 
  //button onclick  activity 
     const[tempFood,setTempFood]=useState(fakeData);
+    
     const  onClickFunction =(clickedFoodCat)=>{
         console.log("clicked....", clickedFoodCat);
        
