@@ -5,47 +5,50 @@ import { Link } from 'react-router-dom';
 
 const FoodDisplay = (props) => {
    
-    // console.log(fakeData);
+       
+    const [food,setFood] = useState(fakeData);
+    let lunchFood=food.filter(el=>el.category==="lunch");
 
-    // const [food,setFood] = useState(fakeData);
-    
-    // const specificFoodCategory=food.filter(el=>el.category==="lunch");
+    //console.log("lunch",lunchFood);
 
-    //console.log(specificFoodCategory);
-    let foodCat = props.foodCat;
-    console.log("from app.js",foodCat);
+ //button onclick  activity 
+    const[tempFood,setTempFood]=useState(fakeData);
+    const  onClickFunction =(clickedFoodCat)=>{
+        console.log("clicked....", clickedFoodCat);
+       
 
-    // const[clickedFoodCat,setClickedFoodCat] = useState(fakeData);
-
-    // const OnClickHandler=foodCategory=>{
+        // const foodCat =tempFood.filter(el=>el.category===ff);
+        const foodCat =food.filter(el=>el.category===clickedFoodCat);
         
-    //     const food = clickedFoodCat.filter(el =>el.category===foodCategory);
-
-    //     setClickedFoodCat(food);
-
-    // }
-    
-    // console.log("in FoodDisplay.js",clickedFoodCat)
-
-    const onClickFunction =(pp)=>{
-
-        console.log("clicked and",pp);
+        console.log("inside function",foodCat);
+        setTempFood(foodCat); //first time  setTempFood not works , but after that it works
+        console.log("useState value",tempFood,typeof(tempFood));
+        //return ({foodCat});
+        
+       
     }
+    
+   
+    lunchFood = tempFood;
+    
     return (
         <div>
-            <h1>this is food display</h1>
+            {/* <h1>this is food display</h1> */}
             
         
 
         <div className="container">
             <div className="row text-center">
                 <div className="col-12">
-                    {/* <a href="" onClick={OnClickHandler("breakfast")}>Breakfast</a>
-                    <a href="" onClick={OnClickHandler("lunch")}>Lunch</a>
-                    <a href="" onClick={OnClickHandler("dinner")}>Dinner</a> */}
-                    <a href="" onClick={onClickFunction("breakfast")} >Breakfast</a>
-                    <a href="" onClick={onClickFunction("lunch")}onClick={onClickFunction("breakfast")}>Lunch</a>
-                    <a href="" onClick={onClickFunction("dinner")}>Dinner</a>
+                    
+                    {/* <a  onClick={()=>onClickFunction("breakfast")} >Breakfast</a>
+                    <a  onClick={()=>onClickFunction("lunch")}>Lunch</a>
+                    <a onClick={()=>onClickFunction("dinner")}>Dinner</a> */}
+                    
+                    <button onClick={()=>onClickFunction("breakfast")}>Breakfast</button>
+                    <button onClick={()=>onClickFunction("lunch")}>Lunch</button>
+                    <button onClick={()=>onClickFunction("dinner")}>Dinner</button>
+
                 </div>
             </div>
         </div>
@@ -55,15 +58,15 @@ const FoodDisplay = (props) => {
                 <div className="col-md-12">
                     <div className="card-columns">
                         {
-                            foodCat.map(el =>
+                            lunchFood.map(el =>
                                 
                                     <div>
                                 
                                     <div className="card text-center " > 
-                                        <img className="card-img-top" src={el.img} alt="Card image cap"></img>
+                                        <img className="card-img-top" src={el.img} alt=""/>
                                 
                                         <div className="card-body">
-                                            <h5 className="card-title"><a href="" className=""></a> <Link to={"/food/"+el.id}>{el.title}</Link></h5>
+                                            <h5 className="card-title"><Link to={"/food/"+el.id}>{el.title}</Link></h5>
                                             <p className="card-text">{el.category}</p>
                                             <p className="font-weight-bold">${el.price}</p>
                                         </div>

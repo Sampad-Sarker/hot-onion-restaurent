@@ -17,8 +17,8 @@ import LogIn from './Components/LogIn/LogIn';
 function App() {
 
   //console.log(fakeData);
-  const [food,setFood] = useState(fakeData);
-  const lunchFood=food.filter(el=>el.category==="lunch");
+  // const [food,setFood] = useState(fakeData);
+  // const lunchFood=food.filter(el=>el.category==="lunch");
 
   return (
     <div>
@@ -28,7 +28,7 @@ function App() {
         <Switch>
           <Route path="/food-display">
             
-            <FoodDisplay foodCat={lunchFood}></FoodDisplay>
+            <FoodDisplay></FoodDisplay>
           </Route>
 
           <Route path="/food/:foodId">
@@ -46,7 +46,7 @@ function App() {
           
           
           <Route exact path="/">
-            <FoodDisplay foodCat={lunchFood}></FoodDisplay>
+            <FoodDisplay></FoodDisplay>
           </Route>
           <Route path="*">
             <NotFound></NotFound> 
