@@ -65,7 +65,7 @@ const FoodDisplay = (props) => {
                         {
                             foodCat.map(el =>
                                 
-                                    <div key={el.id}>
+                                <div key={el.id}>
                                         
                                 
                                     <div className="card text-center " > 

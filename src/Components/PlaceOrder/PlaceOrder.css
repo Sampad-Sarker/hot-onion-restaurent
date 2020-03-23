@@ -1,0 +1,12 @@
+.area{
+    /* border: 1px solid gray; */
+    background-color: aliceblue;
+    width: 40%;
+    margin-top: 10px;
+}
+
+.calculateArea{
+    background-color: azure;
+    width: 40%;
+    margin-top: 10px;
+}
