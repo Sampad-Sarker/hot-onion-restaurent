@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import Header from './Components/Header/Header';
 import FoodDisplay from './Components/FoodDisplay/FoodDisplay';
-import fakeData from './fakeData';
+
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route 
 } from "react-router-dom";
 import FoodDetailInfo from './Components/FoodDetailInfo/FoodDetailInfo';
 import NotFound from './Components/Notfound/NotFound';

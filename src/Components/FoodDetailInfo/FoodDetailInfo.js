@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import fakeData from '../../fakeData';
 import Cart from '../Cart/Cart';
+import { addToDatabaseCart } from '../../utilities/databaseManager';
 
 const FoodDetailInfo = () => {
 
@@ -21,6 +22,10 @@ const FoodDetailInfo = () => {
         console.log("add cart button click",sFood);
         const newCart=[...cart,sFood];
         setCart(newCart);
+
+        const repeatFood =newCart.filter(el=>el.id===sFood.id);
+        const count = repeatFood.length;
+        addToDatabaseCart(sFood.id,count);
     }
 
     return (

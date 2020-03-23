@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './FoodDisplay.css';
 import fakeData from '../../fakeData';
 import { Link } from 'react-router-dom';
-import FoodDetailInfo from '../FoodDetailInfo/FoodDetailInfo';
+
 
 const FoodDisplay = (props) => {
    
@@ -65,7 +65,8 @@ const FoodDisplay = (props) => {
                         {
                             foodCat.map(el =>
                                 
-                                    <div>
+                                    <div key={el.id}>
+                                        
                                 
                                     <div className="card text-center " > 
                                         <img className="card-img-top" src={el.img} alt=""/>
@@ -74,6 +75,7 @@ const FoodDisplay = (props) => {
                                             <h5 className="card-title"><Link to={"/food/"+el.id}>{el.title}</Link></h5>
                                             <p className="card-text">{el.category}</p>
                                             <p className="font-weight-bold">${el.price}</p>
+                                            
                                         </div>
                                     </div>
 
