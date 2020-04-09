@@ -1,5 +1,5 @@
 import React from 'react';
-import './LogIn.css'
+import './LogIn.css';
 import { useForm } from 'react-hook-form'
 
 const LogIn = () => {
@@ -8,9 +8,10 @@ const LogIn = () => {
       const { register, handleSubmit, watch, errors } = useForm() 
       const onSubmit = data => { console.log(data) }
     
-      console.log(watch('example')) // watch input value by passing the name of it
+      //console.log(watch('example')) // watch input value by passing the name of it
     
       return (
+        // <button>SignIn withGoogle</button>
         // {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
         <form className="formStyle" onSubmit={handleSubmit(onSubmit)}>  
             

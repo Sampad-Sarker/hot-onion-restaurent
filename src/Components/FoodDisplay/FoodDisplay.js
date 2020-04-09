@@ -96,7 +96,9 @@ const FoodDisplay = (props) => {
         </div>
         <div className="row">
             <div className="col-md-12 text-center">
-                <button>Checkout Your Food</button>
+                <Link to ="/place-order">
+                    <button>Checkout Your Food</button>
+                </Link>    
             </div>
         </div>
             

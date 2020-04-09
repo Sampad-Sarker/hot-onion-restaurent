@@ -4,7 +4,7 @@ import bgImg from '../../image/bannerbackground.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import './Header.css';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 const Header = () => {
     return (
         <div>
@@ -20,9 +20,9 @@ const Header = () => {
                 </div>
 
                     <div className="row  img-container">
-                        {/* <div className="col-12"> */}
+                        <div className="col-12">
                             <img src={bgImg} alt="" className="img-fluid"/>
-                            <div className="text-over-img ">
+                            {/* <div className="text-over-img ">
                                <h1>Best Food Waiting for You</h1>
                                <nav className="navbar navbar-light" >
                                     <form className="form-inline">
@@ -31,8 +31,8 @@ const Header = () => {
                                     </form>
                                 </nav>
 
-                            </div>
-                        {/* </div> */}
+                            </div> */}
+                        </div>
                     </div>
                 
                 

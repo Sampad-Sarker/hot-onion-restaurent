@@ -13,10 +13,34 @@ import NotFound from './Components/Notfound/NotFound';
 import Cart from './Components/Cart/Cart';
 import LogIn from './Components/LogIn/LogIn';
 import PlaceOrder from './Components/PlaceOrder/PlaceOrder';
+import Home from './Components/Home/Home';
+import { useState } from 'react';
+import { addToDatabaseCart } from './utilities/databaseManager';
 
 function App() {
 
-  
+  const [cart,setCart] = useState([]);
+
+  const addToCartBtnHandler = (foodInfo) => {
+    const alreadyAdded = cart.find(crt => crt.id === foodInfo.id );
+    const newCart = [...cart,foodInfo]
+    setCart(newCart);
+    if(alreadyAdded){
+      const reamingCarts = cart.filter(crt => cart.id !== foodInfo);
+      setCart(reamingCarts);
+
+      addToDatabaseCart(cart.id,cart.quantity); //save in db
+
+    }else{
+      const newCart = [...cart,foodInfo]
+      setCart(newCart);
+
+      addToDatabaseCart(cart.id,cart.quantity); //save in db
+    }
+
+  }
+   
+
 
   return (
     <div>
@@ -24,13 +48,21 @@ function App() {
       <Header></Header>
       <Router>
         <Switch>
+          <Route exact path ="/">
+            <Home cart={cart}></Home>
+          </Route>
+
           <Route path="/food-display">
             
             <FoodDisplay></FoodDisplay>
           </Route>
 
           <Route path="/food/:foodId">
-            <FoodDetailInfo></FoodDetailInfo>
+            <FoodDetailInfo addToCartBtnHandler={addToCartBtnHandler}></FoodDetailInfo>
+          </Route>
+
+          <Route path="/place-order">
+            <PlaceOrder cart={cart}></PlaceOrder>
           </Route>
 
           <Route path='/login'>
@@ -41,16 +73,15 @@ function App() {
             <Cart></Cart>
           </Route>
 
-          <Route path="/place-order">
-            <PlaceOrder></PlaceOrder>
-          </Route>
+          
 
 
 
 
-          <Route exact path="/">
-            <FoodDisplay></FoodDisplay>
-          </Route>
+          {/* <Route exact path="/">
+            <Home></Home>
+          </Route> */}
+
           <Route path="*">
             <NotFound></NotFound> 
           </Route>
