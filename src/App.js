@@ -41,7 +41,11 @@ function App() {
   }
    
 
+  const [deliveryInfo,setDeliveryInfo] = useState({delivery:null,road:null, flat:null, BusinessName:null, instruction: null});
 
+  const deliveryInfoHandler = data => {
+    setDeliveryInfo(data);
+  }
   return (
     <div>
       
@@ -62,7 +66,7 @@ function App() {
           </Route>
 
           <Route path="/place-order">
-            <PlaceOrder cart={cart}></PlaceOrder>
+            <PlaceOrder cart={cart}  deliveryInfo={deliveryInfo} deliveryInfoHandler={deliveryInfoHandler}></PlaceOrder>
           </Route>
 
           <Route path='/login'>
