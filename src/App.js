@@ -15,44 +15,104 @@ import LogIn from './Components/LogIn/LogIn';
 import PlaceOrder from './Components/PlaceOrder/PlaceOrder';
 import Home from './Components/Home/Home';
 import { useState } from 'react';
-import { addToDatabaseCart } from './utilities/databaseManager';
+//import { addToDatabaseCart, getDatabaseCart } from './utilities/databaseManager';
+import { AuthProvider, PrivateRoute } from './Components/LogIn/userAuth';
+import OrderComplete from './Components/OrderComplete/OrderComplete';
+import Inventory from './Components/Inventory/Inventory';
+
 
 function App() {
 
+  //const [showBanner,setShowBanner]=useState(false);
+
   const [cart,setCart] = useState([]);
+  const [orderId , setOrderId] = useState(null);
 
   const addToCartBtnHandler = (foodInfo) => {
-    const alreadyAdded = cart.find(crt => crt.id === foodInfo.id );
+    const alreadyAdded = cart.find(el => el.id === foodInfo.id );
     const newCart = [...cart,foodInfo]
     setCart(newCart);
     if(alreadyAdded){
-      const reamingCarts = cart.filter(crt => cart.id !== foodInfo);
+      const reamingCarts = cart.filter(el =>el.id !== foodInfo);
       setCart(reamingCarts);
 
-      addToDatabaseCart(cart.id,cart.quantity); //save in db
+      console.log("cart info:",cart.id,cart.quantity);
+
+      // addToDatabaseCart(cart.id,cart.quantity); //save in db
+
+      // console.log("from db: ",getDatabaseCart())
 
     }else{
       const newCart = [...cart,foodInfo]
       setCart(newCart);
 
-      addToDatabaseCart(cart.id,cart.quantity); //save in db
+      console.log("cart info:",cart.id,cart.quantity);
+
+      // addToDatabaseCart(cart.id,cart.quantity); //save in db
+      // console.log("from db: ",getDatabaseCart())
     }
 
   }
+
+  const clearCart =  () => {
+    const orderedItems = cart.map(cartItem => {
+      return {food_id : cartItem.id, quantity: cartItem.quantity}
+    })
+
+    const orderDetailsData = { userEmail , orderedItems,  deliveryInfo }
+    fetch('https://powerful-depths-96129.herokuapp.com/submitorder' , {
+        method : "POST",
+        headers: {
+            "Content-type" : "application/json"
+        },
+        body : JSON.stringify(orderDetailsData)
+    })
+    .then(res => res.json())
+    .then(data=> setOrderId(data._id))
+    console.log(orderId);
+
+    setCart([])
+  }
+
+
+  const checkOutItemHandler = (productId, productQuantity) => {
+    const newCart = cart.map(item => {
+      if(item.id === productId){
+          item.quantity = productQuantity;
+      }
+      return item;
+    })
+
+    const filteredCart = newCart.filter(item => item.quantity > 0)
+    setCart(filteredCart)
+  }
+
+
+
+
    
 
   const [deliveryInfo,setDeliveryInfo] = useState({delivery:null,road:null, flat:null, BusinessName:null, instruction: null});
 
+ 
   const deliveryInfoHandler = data => {
     setDeliveryInfo(data);
   }
+
+  const [userEmail, setUserEmail] = useState(null);
+  const getUserEmail = (email) => {
+    setUserEmail(email)
+  }
+
   return (
     <div>
       
-      <Header></Header>
+      <AuthProvider>
+      <Header ></Header>
       <Router>
         <Switch>
           <Route exact path ="/">
+            
             <Home cart={cart}></Home>
           </Route>
 
@@ -62,22 +122,34 @@ function App() {
           </Route>
 
           <Route path="/food/:foodId">
-            <FoodDetailInfo addToCartBtnHandler={addToCartBtnHandler}></FoodDetailInfo>
+            <FoodDetailInfo cart={cart} addToCartBtnHandler={addToCartBtnHandler}></FoodDetailInfo>
           </Route>
 
-          <Route path="/place-order">
-            <PlaceOrder cart={cart}  deliveryInfo={deliveryInfo} deliveryInfoHandler={deliveryInfoHandler}></PlaceOrder>
-          </Route>
-
-          <Route path='/login'>
+          <Route path ='/login'>
             <LogIn></LogIn>
           </Route>
+
+          <PrivateRoute path="/place-order">
+            <PlaceOrder cart={cart}  deliveryInfo={deliveryInfo} deliveryInfoHandler={deliveryInfoHandler} clearCart={clearCart} checkOutItemHandler={checkOutItemHandler} getUserEmail={getUserEmail}></PlaceOrder>
+          </PrivateRoute>
+
+          <PrivateRoute path="/order-complete">
+            <OrderComplete cart={cart} deliveryInfo={deliveryInfo} orderId={orderId}></OrderComplete>
+          </PrivateRoute>
+
+          
+         
 
           <Route path ='/cart'>
             <Cart></Cart>
           </Route>
 
-          
+          <Route path ='/inventory'>
+            <Inventory></Inventory>
+            
+          </Route>
+
+         
 
 
 
@@ -92,6 +164,8 @@ function App() {
         </Switch>
 
       </Router>
+      </AuthProvider>
+     
 
       
     </div>

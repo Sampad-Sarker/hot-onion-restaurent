@@ -4,8 +4,12 @@ import bgImg from '../../image/bannerbackground.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import './Header.css';
+//import { auth } from 'firebase';
+import { useAuth } from '../LogIn/userAuth';
 //import { Link } from 'react-router-dom';
 const Header = () => {
+
+    const auth = useAuth();
     return (
         <div>
             {/* <h1>This header</h1> */}
@@ -14,8 +18,8 @@ const Header = () => {
                         <div className="p-2  bd-highlight"><a className="navbar-brand" href="/">
                         <img src={logo} width="15%" height="5%" alt="logo"/>
                         </a></div>
-                        <div className="p-2 flex-shrink-1 bd-highlight"><button type="button" className="btn btn-sm"><FontAwesomeIcon icon={faShoppingCart} /></button></div>
-                        <div className="p-2 flex-shrink-1 bd-highlight"><button  type="button" className="btn btn-light">Login</button><button type="button" className="btn btn-success">SignUp</button></div>
+    <div className="p-2 flex-shrink-1 bd-highlight"><button type="button" className="btn btn-sm"><FontAwesomeIcon icon={faShoppingCart} /></button></div>
+                        <div className="p-2 flex-shrink-1 bd-highlight"> <button  type="button" className="btn btn-light">Login</button><button type="button" className="btn btn-success" onClick={()=>{auth.signOut()}}>SignOut</button></div>
                         {/* <div class="p-2 flex-shrink-1 bd-highlight"><button>Signup</button></div> */}
                 </div>
 

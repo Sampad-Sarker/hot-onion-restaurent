@@ -1,39 +1,98 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './LogIn.css';
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
+//import Logo from '../../Images/logo2.png';
+import {Link} from 'react-router-dom';
+import { useAuth } from './userAuth';
+
 
 const LogIn = () => {
-    
-    
-      const { register, handleSubmit, watch, errors } = useForm() 
-      const onSubmit = data => { console.log(data) }
-    
-      //console.log(watch('example')) // watch input value by passing the name of it
-    
-      return (
-        // <button>SignIn withGoogle</button>
-        // {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
-        <form className="formStyle" onSubmit={handleSubmit(onSubmit)}>  
-            
-                {/* include validation with required or other standard HTML validation rules */}
-                <input name="Name"  ref={register({ required: true })} placeholder="Name"/>
-                {errors.Name && <span>Name is required</span>}
-                
-                <input name="Email"  ref={register({ required: true })} placeholder="Email"/>
-                {errors.Email && <span>Email is required</span>}
-                
-                <input name="password" ref={register({ required: true })} placeholder="Password"/>
-                {errors.password && <span>Password is required</span>}
+    const [returningUser , setReturningUser] = useState(false);
+    const { register, handleSubmit, watch, errors } = useForm(); 
 
-                <input name="confirm_password" ref={register({ required: true })} placeholder="Confirm Password"/>
-                {errors.confirm_password && <span>Confirm Password is required</span>}
+    const auth = useAuth();
+    const onSubmit = data => { 
+        if(returningUser){
+            if(data.email && data.password){
+                auth.signIn(data.email, data.password);
+            }
+        }else{
+            if(data.name && data.email && data.password && data.confirm_password){
+                auth.signUp(data.email, data.confirm_password,data.name)
+            }
+        }
+        
+     }
+     
+
+    return (
+        <div className="sign-up">
+            <div className="container">
+                {/* <div className="logo text-center">
+                    <Link to="/">
+                         <img src={Logo} alt=""/>
+                    </Link>
+                </div> */}
                 
-                
-                <input type="submit" />
-            
-        </form>
-      )
-    
+                {
+                returningUser ? 
+                <form onSubmit={handleSubmit(onSubmit)} className="py-5">
+                    {
+                    auth.user != null && <p className="text-danger">* {auth.user.error}</p>
+                    }
+                    <div className="form-group">
+                        <input name="email" className="form-control" ref={register({ required: true })} placeholder="Email"/>
+                        {errors.email && <span className="error">Email is required</span>}
+                    </div>
+                    <div className="form-group">
+                        <input type="password" name="password" className="form-control" ref={register({ required: true })} placeholder="Password" />
+                        {errors.password && <span className="error">Password is required</span>}
+                    </div>
+                    
+                    <div className="form-group">
+                        <button className="btn btn-danger btn-block" type="submit">Sign In</button>
+                    </div>
+                    <div className="option text-center">
+                        <label  onClick={() => setReturningUser(false)}>Create a new Account</label>
+                    </div>
+                </form>
+                :
+                <form onSubmit={handleSubmit(onSubmit)} className="py-5">
+                    {
+                    auth.user != null && <p className="text-danger">* {auth.user.error}</p>
+                    }
+                    <div className="form-group">
+                        <input name="name" className="form-control" ref={register({ required: true })} placeholder="Name" />
+                        {errors.name && <span className="error">Name is required</span>}
+                    </div>
+                    <div className="form-group">
+                        <input name="email" className="form-control" ref={register({ required: true })} placeholder="Email"/>
+                        {errors.email && <span className="error">Email is required</span>}
+                    </div>
+                    <div className="form-group">
+                        <input type="password" name="password" className="form-control" ref={register({ required: true })} placeholder="Password" />
+                        {errors.password && <span className="error">Password is required</span>}
+                    </div>
+                    <div className="form-group">
+                        <input type="password" name="confirm_password" className="form-control" ref={register({
+                        validate: (value) => value === watch('password')
+                        })} placeholder="Confirm Password" />
+                        {errors.confirm_password && <span className="error">Passwords don't match.</span>}
+                    </div>
+                    <div className="form-group">
+                        <button className="btn btn-danger btn-block"  type="submit">Sign Up</button>
+                    </div>
+                    <div className="option text-center">
+                        <label onClick={() => setReturningUser(true)}>Already Have an Account</label>
+                    </div>
+                </form>
+
+                }
+               
+            </div>
+
+        </div>
+    );
 };
 
 export default LogIn;

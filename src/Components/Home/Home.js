@@ -2,20 +2,32 @@ import React from 'react';
 import { useState } from 'react';
 import fakeData from '../../fakeData';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Home = (props) => {
     // const[foods,setFoods]=useState(fakeData);
+    const [foods, setFoods] = useState([]);
     const[foodCat,setFoodCat]=useState("lunch");
 
-    const selectedFoodCat = fakeData.filter(el=>el.category===foodCat);
+    const selectedFoodCat = foods.filter(el=>el.category===foodCat);
 
 
-    console.log("cart info",props.cart);
+    //console.log("cart info",props.cart);
+    
+    useEffect(() => {
+        fetch('https://powerful-depths-96129.herokuapp.com/foods')
+        .then(res => res.json())
+        .then(data => {
+            setFoods(data);
+            
+        })
+        .catch(err => console.log(err))
+    } ,[foods.length])
 
     return (
         <div>
-            <h1>Home</h1>
-            <h1>cart info:{props.cart.length}</h1>
+            {/* <h1>Home</h1>
+            <h1>cart info:{props.cart.length}</h1> */}
             
            
             <div style={{textAlign:"center"}}>
@@ -69,7 +81,7 @@ const Home = (props) => {
                     <button style={{color:"black",backgroundColor:"red"}}>Checkout Your Food</button>
                     </Link> 
                     :
-                    <button>Checkout Your Food</button>
+                    <button disabled>Checkout Your Food</button>
                 }   
             </div>
         </div>

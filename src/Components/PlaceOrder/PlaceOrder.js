@@ -1,18 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect }  from 'react';
 import './PlaceOrder.css';
 //import { getDatabaseCart } from '../../utilities/databaseManager';
 //import fakeData from '../../fakeData';
 import { Link } from 'react-router-dom';
 //import React from 'react'
 import { useForm } from 'react-hook-form'
+import { useAuth } from '../LogIn/userAuth';
+//import { getDatabaseCart } from '../../utilities/databaseManager';
+import {loadStripe} from '@stripe/stripe-js';
+import {Elements} from '@stripe/react-stripe-js';
+  
+import Payment from '../Payment/Payment';
+import { useState } from 'react';
 
 const PlaceOrder = (props) => {
+    const auth = useAuth(); 
+
+    const stripePromise = loadStripe('pk_test_rSuk8z9YFWlOuvcrhCV31Rhh007S7Wuc83');
+    const [paid, setPaid] = useState(null);
+    const markAsPaid = (paymentInfo) => {
+        setPaid(paymentInfo)
+    }
+    useEffect(() =>{
+        window.scrollTo(0, 0)
+    }, []);
+
+    const { register, handleSubmit, watch, errors } = useForm()
+    const onSubmit = data => {
+        props.deliveryInfoHandler(data);
+        props.getUserEmail(auth.user.email);
+    };
+
+    const {delivery,road, flat, BusinessName, instruction} = props.deliveryInfo;
 
     console.log("Added to cart item",props.cart);
 
     const foodCart = props.cart;
 
-    console.log("foodCart info now: ",foodCart)
+    // const db =getDatabaseCart();
+    // console.log("from database",db);
+
+    //console.log("foodCart info now: ",foodCart)
 
     //const [foodCart,setFoodCart]=useState([]);
     //setFoodCart(props.cart);
@@ -50,23 +78,25 @@ const PlaceOrder = (props) => {
 
     //const {title,shortDescription,price,img,number}=foodCart;
 
-        const {delivery,road, flat, BusinessName, instruction} = props.deliveryInfo;
+       
     
-        const { register, handleSubmit, errors } = useForm()
+        // const { register, handleSubmit, errors } = useForm()
         
-        const onSubmit = data => { 
-            console.log(data)
-            props.deliveryInfoHandler(data); 
-        }
+        // const onSubmit = data => { 
+        //     console.log(data)
+        //     props.deliveryInfoHandler(data); 
+        // }
+
+        
 
     return (
         <div className='container'>
-            <h1>place Order Page</h1>
+            {/* <h1>place Order Page</h1>
             <h2>item:{foodCart.length}</h2>
-            <br/>
+            <br/> */}
 
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6" style={{display:(delivery && road && flat && BusinessName && instruction) ? "none" : "block"}} >
 
                     <h3>Delivery Details</h3>
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -95,9 +125,15 @@ const PlaceOrder = (props) => {
                     </form>
 
                 </div>
+                <div style={{display:(delivery && road && flat && BusinessName && instruction) ? "block" : "none"}} className="col-md-6">
+                    <Elements stripe={stripePromise}>
+                        <Payment markAsPaid={markAsPaid}/>
+                    </Elements>
+                </div>
+
                 <div className="col-md-6">
                 {
-                    foodCart.map(el => {return <div  key={el.id} >
+                    props.cart.map(el => {return <div  key={el.id} >
                                                     <div className="area" >
                                                         <div >
                                                             <img src={el.img} alt="" style={{width:"100%"}}/>
@@ -126,12 +162,13 @@ const PlaceOrder = (props) => {
                     <p>delivery charge:${deliveryCharge.toFixed(2)}</p>
                     <h6>Overall total:${(total+tax+deliveryCharge).toFixed(2)}</h6>
                     {
-                        delivery && road && flat && BusinessName && instruction ?
-                        <Link to="/logIn">
-                        <button style={{color:"red"}}>Place Order</button>
+                        //delivery && road && flat && BusinessName && instruction ?
+                        paid ? 
+                        <Link to="/order-complete">
+                        <button style={{color:"red"}} onClick={() => props.clearCart()}>Place Order</button>
                         </Link>
                         :
-                        <button disabled>Place order</button>
+                        <button disabled style={{}}>Place order</button>
                     }
                 </div>
 
