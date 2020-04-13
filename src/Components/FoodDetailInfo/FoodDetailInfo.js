@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 //import fakeData from '../../fakeData';
@@ -28,15 +26,18 @@ const FoodDetailInfo = (props) => {
         fetch("https://powerful-depths-96129.herokuapp.com/food/"+ foodId)
         .then(res=>res.json())
         .then(data => {
+            console.log(data);
             setCurrentFood(data);
+
+
             
         })
         .catch(err => console.log(err))
 
-        if(currentFood.images){
+        if(currentFood.img){
             setSelectedBigImg(currentFood.img);
         }
-        window.scrollTo(0, 0)
+       
     }, [currentFood.title])
 
 
@@ -59,7 +60,7 @@ const FoodDetailInfo = (props) => {
 
     const btnMinus =()=>{
         const newCount = count-1;
-        if (newCount>=0) {
+        if (newCount>=1) {
             setCount(newCount);
         }
         else{
